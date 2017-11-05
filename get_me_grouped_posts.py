@@ -111,7 +111,7 @@ all_sharings = [
 ]
 
 
-def get_me_grouped_categories(sharings, number_of_expected_groups, number_of_participants_per_group):
+def get_me_grouped_categories(sharings, number_of_expected_groups, number_of_participants_per_group=6):
     dominant_language_counter = Counter()
     for post in sharings:
         post['language'] = detect(post['sharing'])
@@ -123,4 +123,4 @@ def get_me_grouped_categories(sharings, number_of_expected_groups, number_of_par
 
 
 if __name__ == '__main__':
-    get_me_grouped_categories(all_sharings, 1, 0)
+    get_me_grouped_categories(all_sharings, 1)
