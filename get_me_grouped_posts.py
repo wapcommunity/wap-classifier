@@ -95,7 +95,7 @@ all_sharings = [
         "sharing": "Un programmr riche et collectif pour se lancer dans l entrepreneuriat"
     },
     {
-        "author": "Lillianne Bouchie",
+        "author": "Lillianne Bouchier",
         "sharing": """Une de mes plus inspirantes rencontres, Avec Tonee NDungu, entrepreneur Kenyan fondateur de KYTABU: accès à l'éducation, numérisation de contenu, pragmatisme extrême!, neurodiversite, différenciation
 	More : https://medium.com/@leadouhard/why-we-have-a-lot-to-learn-from-edtech-kenya-6353e4ca79e3"""""
     },
