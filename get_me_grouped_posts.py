@@ -1,7 +1,9 @@
 # -*- coding: utf8 -*-
-import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 from langdetect import detect
 from collections import Counter
+from nltk.stem.snowball import SnowballStemmer
 
 all_sharings = [
     {
@@ -24,8 +26,9 @@ all_sharings = [
         "author": "Max ColLy",
         "sharing": "KISD est une école avant-gardiste entièrement basée sur la pédagogie project based learning."
     },
-    {"author": "Samina Parisier",
-     "sharing": "J'ai raconté les expériences qui m'ont mené à devenir prof de lettres classiques en collège REP. Puis j'ai raconté ce que j'y ai appris et pourquoi je m'y épanouis tellement!"
+    {
+        "author": "Samina Parisier",
+        "sharing": "J'ai raconté les expériences qui m'ont mené à devenir prof de lettres classiques en collège REP. Puis j'ai raconté ce que j'y ai appris et pourquoi je m'y épanouis tellement!"
      },
     {
         "author": "Clara Sène",
@@ -88,11 +91,11 @@ all_sharings = [
     },
     {
         "author": "Caroline Imbert",
-        "sharing": "Developper les perpsectuves d avenir des collegiens par une experience Intercative d enquetes entre collegiens et professionnels . L apprenant devient le sachant et inversement"
+        "sharing": "Developper les perpsectives d avenir des collegiens par une experience Intercative d enquetes entre collegiens et professionnels . L apprenant devient le sachant et inversement"
     },
     {
         "author": "Anonymous",
-        "sharing": "Un programmr riche et collectif pour se lancer dans l entrepreneuriat"
+        "sharing": "Un programme riche et collectif pour se lancer dans l entrepreneuriat"
     },
     {
         "author": "Lillianne Bouchier",
@@ -111,15 +114,30 @@ all_sharings = [
 ]
 
 
+
+
+
+
 def get_me_grouped_categories(sharings, number_of_expected_groups, number_of_participants_per_group=6):
+    stemmer = SnowballStemmer("french")
+
+    stop_words_french = set(stopwords.words('french'))
+    stop_words_english = set(stopwords.words('english'))
     dominant_language_counter = Counter()
     for post in sharings:
-        post['language'] = detect(post['sharing'])
+        sharing_language = post['language'] = detect(post['sharing'])
         dominant_language_counter[post['language']] += 1
-        print(post)
+        word_tokenized_post = word_tokenize(post['sharing'])
 
+        if post['language'] == 'fr':
+            post_cleaned_text = [word for word in word_tokenized_post if word not in stop_words_french]
+        elif post['language'] == 'en':
+            post_cleaned_text = [word for word in word_tokenized_post if word not in stop_words_english]
+
+        print(post_cleaned_text)
+        print('\n' * 5)
     dominant_language = dominant_language_counter.most_common(1)[0]
-    print('Dominant language :', dominant_language)
+    
 
 
 if __name__ == '__main__':
